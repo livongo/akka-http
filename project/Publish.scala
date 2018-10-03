@@ -5,7 +5,8 @@
 package akka
 
 import scala.language.postfixOps
-import sbt._, Keys._
+import sbt._
+import Keys._
 
 /**
  * For projects that are not published.
@@ -21,16 +22,26 @@ object NoPublish extends AutoPlugin {
 
 }
 
-object Publish extends AutoPlugin {
-  import bintray.BintrayPlugin
-  import bintray.BintrayPlugin.autoImport._
+//object Publish extends AutoPlugin {
+//  import bintray.BintrayPlugin
+//  import bintray.BintrayPlugin.autoImport._
+//
+//  override def trigger = allRequirements
+//  override def requires = BintrayPlugin
+//
+//  override def projectSettings = Seq(
+//    bintrayOrganization := Some("akka"),
+//    bintrayPackage := "com.typesafe.akka:akka-http_2.11"
+//  )
+//}
 
+object Publish extends AutoPlugin {
   override def trigger = allRequirements
-  override def requires = BintrayPlugin
+  //  override def requires = BintrayPlugin
 
   override def projectSettings = Seq(
-    bintrayOrganization := Some("akka"),
-    bintrayPackage := "com.typesafe.akka:akka-http_2.11"
+    publishTo := Some("Artifactory Realm" at "http://52.7.159.52/artifactory/ext-release-local"),
+    credentials += Credentials("Artifactory Realm", "52.7.159.52", "admin", "AP51HF7hmZL7Y9oLgMWbt9ABDBr")
   )
 }
 

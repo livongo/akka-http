@@ -13,6 +13,7 @@ inThisBuild(Def.settings(
   organization := "com.typesafe.akka",
   organizationName := "Lightbend",
   organizationHomepage := Some(url("https://www.lightbend.com")),
+  version := "10.1.5.1.livongo",
   homepage := Some(url("https://akka.io")),
   // https://github.com/dwijnand/sbt-dynver/issues/23
   isSnapshot :=  { isSnapshot.value || hasCommitsAfterTag(dynverGitDescribeOutput.value) },
@@ -53,7 +54,7 @@ lazy val root = Project(
     base = file(".")
   )
   .enablePlugins(UnidocRoot, NoPublish, DeployRsync, AggregatePRValidation)
-  .disablePlugins(BintrayPlugin, MimaPlugin)
+  .disablePlugins(/*BintrayPlugin, */MimaPlugin)
   .settings(
     // Unidoc doesn't like macros
     unidocProjectExcludes := Seq(parsing, httpJmhBench),
@@ -175,7 +176,7 @@ lazy val httpTests = project("akka-http-tests")
   .settings(Dependencies.httpTests)
   .dependsOn(httpSprayJson, httpXml, httpJackson,
     httpTestkit % "test", httpCore % "test->test")
-  .enablePlugins(NoPublish).disablePlugins(BintrayPlugin) // don't release tests
+  .enablePlugins(NoPublish).disablePlugins(/*BintrayPlugin*/) // don't release tests
   .enablePlugins(MultiNode)
   .disablePlugins(MimaPlugin) // this is only tests
   .configs(MultiJvm)
@@ -189,12 +190,12 @@ lazy val httpJmhBench = project("akka-http-bench-jmh")
   .dependsOn(http)
   .addAkkaModuleDependency("akka-stream")
   .enablePlugins(JmhPlugin)
-  .enablePlugins(NoPublish).disablePlugins(BintrayPlugin) // don't release benchs
+  .enablePlugins(NoPublish).disablePlugins(/*BintrayPlugin*/) // don't release benchs
   .disablePlugins(MimaPlugin)
 
 lazy val httpMarshallersScala = project("akka-http-marshallers-scala")
   .enablePlugins(NoPublish/*, AggregatePRValidation*/)
-  .disablePlugins(BintrayPlugin, MimaPlugin)
+  .disablePlugins(/*BintrayPlugin, */MimaPlugin)
   .aggregate(httpSprayJson, httpXml)
 
 lazy val httpXml =
@@ -211,7 +212,7 @@ lazy val httpSprayJson =
 
 lazy val httpMarshallersJava = project("akka-http-marshallers-java")
   .enablePlugins(NoPublish/*, AggregatePRValidation*/)
-  .disablePlugins(BintrayPlugin, MimaPlugin)
+  .disablePlugins(/*BintrayPlugin, */MimaPlugin)
   .aggregate(httpJackson)
 
 lazy val httpJackson =
@@ -249,7 +250,7 @@ def httpMarshallersJavaSubproject(name: String) =
 
 lazy val docs = project("docs")
   .enablePlugins(AkkaParadoxPlugin, NoPublish, DeployRsync)
-  .disablePlugins(BintrayPlugin, MimaPlugin)
+  .disablePlugins(/*BintrayPlugin, */MimaPlugin)
   .addAkkaModuleDependency("akka-stream", "provided")
   .dependsOn(
     httpCore, http, httpXml, http2Support, httpMarshallersJava, httpMarshallersScala, httpCaching,
