@@ -117,8 +117,8 @@ private[http2] object ResponseRendering {
           case x: `Content-Length` ⇒
             suppressionWarning(x, "explicit `Content-Length` header is not allowed. Use the appropriate HttpEntity subtype.")
 
-          case x: `Content-Type` ⇒
-            suppressionWarning(x, "explicit `Content-Type` header is not allowed. Set `HttpResponse.entity.contentType` instead.")
+          //          case x: `Content-Type` ⇒
+          //            suppressionWarning(x, "explicit `Content-Type` header is not allowed. Set `HttpResponse.entity.contentType` instead.")
 
           case x: `Transfer-Encoding` ⇒
             suppressionWarning(x, "`Transfer-Encoding` header is not allowed for HTTP/2")

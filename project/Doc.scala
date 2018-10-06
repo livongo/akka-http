@@ -20,8 +20,8 @@ object Doc {
 object Scaladoc extends AutoPlugin {
 
   object CliOptions {
-    val scaladocDiagramsEnabled = CliOption("akka.scaladoc.diagrams", true)
-    val scaladocAutoAPI = CliOption("akka.scaladoc.autoapi", true)
+    val scaladocDiagramsEnabled = CliOption(false) // CliOption("akka.scaladoc.diagrams", true)
+    val scaladocAutoAPI = CliOption(false) //CliOption("akka.scaladoc.autoapi", true)
   }
 
   override def trigger = allRequirements

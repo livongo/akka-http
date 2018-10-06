@@ -13,7 +13,7 @@ inThisBuild(Def.settings(
   organization := "com.typesafe.akka",
   organizationName := "Lightbend",
   organizationHomepage := Some(url("https://www.lightbend.com")),
-  version := "10.1.5.1.livongo",
+  version := "10.1.5.2.livongo",
   homepage := Some(url("https://akka.io")),
   // https://github.com/dwijnand/sbt-dynver/issues/23
   isSnapshot :=  { isSnapshot.value || hasCommitsAfterTag(dynverGitDescribeOutput.value) },
@@ -46,7 +46,8 @@ inThisBuild(Def.settings(
   Dependencies.Versions,
   Formatting.formatSettings,
   shellPrompt := { s => Project.extract(s).currentProject.id + " > " },
-  concurrentRestrictions in Global += Tags.limit(Tags.Test, 1)
+  concurrentRestrictions in Global += Tags.limit(Tags.Test, 1),
+  publishArtifact in (Compile, packageDoc) := false
 ))
 
 lazy val root = Project(
@@ -83,7 +84,7 @@ lazy val root = Project(
     httpTests,
     httpMarshallersScala,
     httpMarshallersJava,
-    docs
+//    docs
   )
 
 lazy val parsing = project("akka-parsing")
@@ -105,7 +106,7 @@ lazy val httpCore = project("akka-http-core")
   .addAkkaModuleDependency("akka-stream-testkit", "test")
   .settings(Dependencies.httpCore)
   .settings(VersionGenerator.versionSettings)
-  .enablePlugins(BootstrapGenjavadoc)
+//  .enablePlugins(BootstrapGenjavadoc)
 
 lazy val http = project("akka-http")
   .settings(AutomaticModuleName.settings("akka.http"))
